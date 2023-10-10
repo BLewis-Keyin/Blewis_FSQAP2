@@ -1,0 +1,21 @@
+{
+  "name": "fsqap2",
+  "version": "1.0.0",
+  "description": "QAP 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "Brandon Lewis",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "http": "^0.0.1-security"
+  }
+}
