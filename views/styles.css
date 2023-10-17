@@ -1,57 +1,153 @@
-/* Reset some default styles */
-
 body,
 h1,
 h2,
-p,
+h3,
 ul,
-li {
+li,
+p {
     margin: 0;
     padding: 0;
 }
 
 
-/* Basic styles for the page */
+/* Set a background color and font family for the entire page */
 
 body {
-    font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
 }
+
+
+/* Create a header style */
 
 header {
     background-color: #333;
     color: #fff;
-    padding: 20px;
     text-align: center;
+    padding: 1rem;
 }
+
+
+/* Style links in the navigation menu */
 
 nav ul {
-    background-color: #444;
-    list-style-type: none;
-    overflow: hidden;
+    list-style: none;
 }
 
-nav ul li {
+nav li {
     display: inline;
     margin-right: 10px;
 }
 
-nav ul li a {
-    color: #fff;
+nav a {
     text-decoration: none;
+    color: #333;
 }
 
+
+/* Style the main content area */
+
 main {
-    margin: 20px;
     padding: 20px;
+}
+
+
+/* Create a chat room container */
+
+#chat-room {
     background-color: #fff;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+
+/* Style the chat input and button */
+
+#message-input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#send-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
+/* Style the chat messages */
+
+#chat-box {
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    height: 300px;
+    width: 600px;
+    overflow-y: scroll;
+    background-color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-footer {
-    text-align: center;
+
+/* Style chat message elements */
+
+.chat-message {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
     padding: 10px;
-    background-color: #444;
+}
+
+#menu-placeholder {
+    width: 200px;
+    background-color: #333;
     color: #fff;
+    padding: 10px;
+    border-right: 1px solid #555;
+}
+
+#menu-placeholder2 {
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-right: 1px solid #555;
+}
+
+#menu-placeholder,
+#menu-placeholder2 h3 {
+    font-size: 18px;
+}
+
+#menu-placeholder,
+#menu-placeholder2 ul {
+    list-style: none;
+    padding: 0;
+}
+
+#menu-placeholder,
+#menu-placeholder2 li {
+    margin-bottom: 10px;
+}
+
+#menu-placeholder,
+#menu-placeholder2 a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+}
+
+#menu-placeholder,
+#menu-placeholder2 a:hover {
+    text-decoration: underline;
 }

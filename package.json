@@ -16,6 +16,7 @@
   "author": "Brandon Lewis",
   "license": "UNLICENSED",
   "dependencies": {
-    "http": "^0.0.1-security"
+    "http": "^0.0.1-security",
+    "socket.io": "^4.7.2"
   }
 }
