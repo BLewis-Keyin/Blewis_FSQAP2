@@ -8,33 +8,51 @@ const console = require('console');
 //Set up eventEmitter
 const eventEmitter = new events.EventEmitter();
 
+const logFileStream = fs.createWriteStream('server.log', { flags: 'a' });
+
+function logActivity(message) {
+    const timestamp = new Date().toUTCString();
+    const logMessage = `[${timestamp}] ${message}`;
+
+    console.log(logMessage); // Log to the console
+    logFileStream.write(logMessage + '\n'); // Log to the file
+}
+
+
 //Set up server
 const server = http.createServer((req, res) => {
     const url = req.url;
+
+    logActivity(`Received request for: ${url}`);
+
     const baseDirectory = path.join(__dirname, 'views');
     const filePath = path.join(baseDirectory, url === '/' ? 'index.html' : `${url}.html`);
 
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
             // File does not exist
-            res.writeHead(404, { 'Content-Type': 'text/plain' });
-            res.end('URL Not Found');
-            console.log('URL Not Found');
+            if (url === "/styles.css") {
+                // Do nothing, not needed if browser requests styles.css
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('URL Not Found');
+            } else {
+                logActivity(`URL Not Found for: ${url}`);
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('URL Not Found');
+            }
         } else {
-            console.log('URL Found (Success)');
             // File exists
             fs.readFile(filePath, 'utf8', (err, data) => {
                 if (err) {
-                    console.log('Error with server');
-                    // An error occurred
+                    // An error occurred while reading the file
+                    logActivity(`Error reading file for: ${url}`);
                     res.writeHead(500, { 'Content-Type': 'text/plain' });
                     res.end('Internal Server Error');
                 } else {
-                    console.log('File Read (Success)');
-                    // Successful
+                    // Successful, serve the HTML content
+                    logActivity(`Served HTML file for: ${url}`);
                     res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.write(data)
-                    res.end();
+                    res.end(data);
                 }
             });
         }
@@ -82,13 +100,3 @@ function serveHTMLFile(filename, res) {
 eventEmitter.on('request', (req) => {
     console.log(`Received request for: ${req.url}`);
 });
-
-
-
-function logRequest(req, res) {
-    console.log(`Received request for: ${req.url}`);
-}
-
-function logResponse(req, res) {
-    console.log(`Sent response for: ${req.url}`);
-}
