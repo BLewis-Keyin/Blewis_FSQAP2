@@ -5,42 +5,62 @@ const fs = require('fs');
 const path = require('path');
 const console = require('console');
 
+
 //eventEmitter
 const eventEmitter = new events.EventEmitter();
 eventEmitter.on('request', (req) => {
-    console.log(`Received request for: ${req.url}`);
+    logActivity(`Received request for: ${req.url}`);
 })
 
+
 //Activity Log
-const logFileStream = fs.createWriteStream('server.log', { flags: 'a' });
+const logDirectory = './logs';
+
+if (!fs.existsSync(logDirectory)) {
+    fs.mkdirSync(logDirectory);
+    logActivity(`Created log directory: ${logDirectory}`);
+}
 
 function logActivity(message) {
+    const currentDate = new Date().toISOString().slice(0, 10);
+    const logFile = `${logDirectory}/${currentDate}.log`;
     const timestamp = new Date().toUTCString();
     const logMessage = `[${timestamp}] ${message}`;
     console.log(logMessage); // Log to the console
-    logFileStream.write(logMessage + '\n'); // Log to the file
+
+    const fileStream = fs.createWriteStream(logFile, { flags: 'a' });
+    fileStream.write(logMessage + '\n');
+    fileStream.end();
 }
 
+
 //Server Setup
-
-
 const server = http.createServer((req, res) => {
-    const loggedRequests = new Set();
     const url = req.url;
+    logActivity(`Received request for: ${url}`);
 
-    if (loggedRequests.has(url)) {} else {
-
-        logActivity(`Received request for: ${url}`);
-        loggedRequests.add(url);
-
+    if (url === '/navigation.js') {
+        // Serve navigation.js
+        const filePath = path.join(__dirname, 'views', 'navigation.js');
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('File Not Found');
+            } else {
+                res.writeHead(200, { 'Content-Type': 'application/javascript' });
+                res.end(data);
+            }
+        });
+    } else {
+        // Handle other routes
         const baseDirectory = path.join(__dirname, 'views');
         const filePath = path.join(baseDirectory, url === '/' ? 'index.html' : `${url}.html`);
 
         fs.access(filePath, fs.constants.F_OK, (err) => {
             if (err) {
                 // File does not exist
-                if (url === "/styles.css") {
-                    // Do nothing, not needed if browser requests styles.css
+                if (url == "/styles.css") {
+                    // Do nothing, not needed if the browser requests styles.css
                     res.writeHead(404, { 'Content-Type': 'text/plain' });
                     res.end('URL Not Found');
                 } else {
@@ -64,9 +84,10 @@ const server = http.createServer((req, res) => {
                     }
                 });
             }
-        })
-    };
+        });
+    }
 });
+
 server.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 });

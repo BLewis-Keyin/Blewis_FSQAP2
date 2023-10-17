@@ -1,4 +1,9 @@
+<!DOCTYPE html>
 <html>
+<script src="./navigation.js" type="module"></script>
+<script type="module">
+    import { injectNavigationMenu } from './navigation.js'; injectNavigationMenu('menu-placeholder');
+</script>
 
 <head>
     <title>Home Page</title>
@@ -6,6 +11,7 @@
 </head>
 
 <body>
+    <div id="menu-placeholder"></div>
     <header>
         <h1>Welcome to Our Website</h1>
     </header>
@@ -29,5 +35,7 @@
         <p>&copy; 2023 Your Website Name</p>
     </footer>
 </body>
+
+
 
 </html>
