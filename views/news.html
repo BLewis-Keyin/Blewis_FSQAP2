@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<script src="./navigation.js" type="module"></script>
+<script type="module">
+    import { injectNavigationMenu } from './navigation.js'; injectNavigationMenu('menu-placeholder');
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>News - Example Website</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <div class="banner-menu" id="menu-placeholder"></div>
+    <ul id="news-list"></ul>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        // Function to fetch and display news
+        function fetchAndDisplayNews() {
+            const rssFeedURL = 'https://www.computerworld.com/news/index.rss';
+            const newsList = document.getElementById('news-list');
+
+            // Fetch the RSS feed
+            fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssFeedURL}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    data.items.forEach((item) => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `
+                        <div class="newsitem">
+                            <h3>${item.title}</h3>
+                            <p>${new Date(item.pubDate).toDateString()}</p>
+                            <p>${item.description}</p>
+                            <a href="${item.link}" target="_blank">Read more</a>
+                            <img src="${item.enclosure.link}" alt="${item.title}" />
+                            </div>
+                        `;
+                        newsList.appendChild(listItem);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error fetching and displaying news:', error);
+                });
+        }
+
+        // Call the function to fetch and display news
+        fetchAndDisplayNews();
+    </script>
+</body>
+
+</html>

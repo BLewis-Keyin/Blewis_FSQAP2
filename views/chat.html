@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat Room</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <script src="./navigation.js" type="module"></script>
+    <script type="module">
+        import { injectNavigationMenu } from './navigation.js'; injectNavigationMenu('menu-placeholder');
+    </script>
+</head>
+
+<body>
+    <div class="banner-menu" id="menu-placeholder"></div>
+
+    <div id="menu-placeholder2">
+        <h3>Chat Rooms</h3>
+        <ul>
+            <li><a href="#room1" id="chat-room-1">Room 1</a></li>
+            <li><a href="#room2" id="chat-room-2">Room 2</a></li>
+            <li><a href="#room3" id="chat-room-3">Room 3</a></li>
+        </ul>
+    </div>
+
+    <div id="chat-box">
+    </div>
+
+    <div class="message-input-container">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button id="send-button">Send</button>
+        <button id="clear-button">Clear</button>
+    </div>
+
+    <footer>
+        <p>&copy; Example Copyright. All rights reserved.</p>
+    </footer>
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    // welcome to cursed code
+    // Could be its own JS file of course, but its now 4am. This code took hours to get working
+    // So I'm just gonna leave it here
+
+    // initialize socket
+    const socket = io();
+    const chatBox = document.getElementById('chat-box');
+    const messageInput = document.getElementById('message-input');
+    const sendButton = document.getElementById('send-button');
+    const clearChatButton = document.getElementById('clear-button');
+
+    // Store messages for different chat rooms
+    // socket.io code in app.js also uses this constant, not sure which one is needed. Its working, so im just gonna leave it.
+    const chatRooms = {
+        room1: ['This is an example chat room feature', 'Messages are stored into a room array, and displayed here', 'Each chat room has its own array, and switching between chat rooms will update the chat box to reflect the new room'],
+        room2: [],
+        room3: [],
+    };
+
+    // Function to get the current chat room 
+    function getCurrentRoom() {
+        const currentHash = window.location.hash; // Get the current URL hash
+        const roomName = currentHash.slice(1);
+        return roomName || 'room1';
+    }
+
+    // Function to switch chat rooms
+    function switchChatRoom(room) {
+        chatBox.innerHTML = ''; // Clear the chat box
+        // Fetch the chat history for the room
+        socket.emit('join room', room);
+        // Listen for chat history from the server
+        socket.on('chat history', (history) => {
+            chatRooms[room] = history;
+            chatBox.innerHTML = '';
+            history.forEach((msg) => {
+                const messageElement = document.createElement('p');
+                messageElement.textContent = msg;
+                chatBox.appendChild(messageElement);
+            });
+        });
+    }
+
+    // Function to send a message
+    function sendMessage() {
+        console.log(chatRooms)
+        const message = messageInput.value;
+        const room = getCurrentRoom();
+        console.log(room)
+        if (message) {
+            socket.emit('chat message', {
+                room,
+                message
+            });
+            messageInput.value = '';
+        }
+    }
+
+    function clearChat() {
+        const room = getCurrentRoom();
+        socket.emit('clear chat', room);
+    }
+
+    // Listen for incoming messages from the server
+    socket.on('chat message', (data) => {
+        const {
+            room,
+            message
+        } = data;
+        chatRooms[room].push(message);
+        if (room === getCurrentRoom()) {
+            const messageElement = document.createElement('p');
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+        }
+    });
+
+    // Add event listeners
+    sendButton.addEventListener('click', sendMessage);
+    window.addEventListener('hashchange', () => {
+        switchChatRoom(getCurrentRoom()); // Update the chat box when the URL hash changes
+    });
+    clearChatButton.addEventListener('click', () => {
+        clearChat();
+        switchChatRoom(getCurrentRoom());
+    });
+
+    messageInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent the default Enter key behavior (new line)
+            sendMessage(); // Call the sendMessage function
+        }
+    });
+
+    const roomLinks = document.querySelectorAll('#menu-placeholder ul li a');
+    roomLinks.forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent the default behavior of links
+            const roomName = link.getAttribute('href').slice(1); // Get the room name from the href attribute
+            window.location.hash = roomName; // Update the URL hash
+            switchChatRoom(roomName); // Switch to the selected room
+        });
+    });
+
+
+    // Initialize the chat box for the current room
+    switchChatRoom(getCurrentRoom());
+
+
+    // End of cursed code
+    // Todo: Add feature that lets the user add and delete chat rooms
+</script>
+
+</html>
