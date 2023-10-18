@@ -24,7 +24,7 @@ Install the required dependencies:
 
 Start the application:
 
-    npm start
+    node app.js
 
 **Usage**
 
