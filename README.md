@@ -16,7 +16,7 @@ Features
 
 Clone this repository:
 
-    git clone https://github.com/your-username/chat-app.git
+    https://github.com/BLewis-Keyin/Blewis_FSQAP2.git
 
 Install the required dependencies:
 
