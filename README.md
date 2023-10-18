@@ -4,13 +4,13 @@ This project is a an example project to demonstrate Server Setup using node.js a
 
 Features
 
-    Working node.js server with routing.
-    Chat feature proof of concept.
-    RSS feed implementation.
+    Working node.js server with routing
+    Chat feature proof of concept
+    RSS feed implementation
 
 **Getting Started**
 
-    Make sure you have Node.js and npm installed on your system.
+    Make sure you have Node.js and npm installed on your system
 
 **Installation**
 
@@ -28,6 +28,6 @@ Start the application:
 
 **Usage**
 
-    Access the application through your web browser.
-    Explore the features, and observe logging events in terminal.
+    Access the application through your web browser
+    Explore the features, and observe logging events in terminal
     Access logs through the Logs folder
