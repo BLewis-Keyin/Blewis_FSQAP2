@@ -27,14 +27,13 @@ function logActivity(message) {
     const timestamp = new Date().toUTCString();
     const logMessage = `[${timestamp}] ${message}`;
     console.log(logMessage); // Log to the console
-
     const fileStream = fs.createWriteStream(logFile, { flags: 'a' });
     fileStream.write(logMessage + '\n');
     fileStream.end();
 }
 
 
-//Server Setup
+// Server Setup
 const server = http.createServer((req, res) => {
     const url = req.url;
     logActivity(`Received request for: ${url}`);
@@ -51,6 +50,7 @@ const server = http.createServer((req, res) => {
                 res.end(data);
             }
         });
+
     } else if (url === '/styles.css') {
         // Serve styles.css
         const filePath = path.join(__dirname, 'views', 'styles.css');
@@ -63,6 +63,7 @@ const server = http.createServer((req, res) => {
                 res.end(data);
             }
         });
+
     } else {
         // Handle other routes
         const baseDirectory = path.join(__dirname, 'views');
@@ -99,16 +100,14 @@ const server = http.createServer((req, res) => {
     }
 });
 
-
+// Chat Feature Setup
 const chatRooms = {
     room1: ['This is an example chat room feature', 'Messages are stored into a room array, and displayed here', 'Each chat room has its own array, and switching between chat rooms will update the chat box to reflect the new room'],
     room2: [],
     room3: [],
 };
 
-// Socket Setup
 const io = socketIo(server);
-
 io.on('connection', (socket) => {
     logActivity('A user connected to ' + socket.id);
 
@@ -128,6 +127,14 @@ io.on('connection', (socket) => {
         console.log('Message:', message); // Log each message
     });
 
+
+    socket.on('clear chat', (room) => {
+        if (chatRooms[room]) {
+            chatRooms[room] = [];
+            io.emit('chat cleared', room);
+        }
+    });
+
     // Create a new chat room
     socket.on('create room', (room) => {
         // Check if the room already exists
@@ -144,24 +151,3 @@ io.on('connection', (socket) => {
 server.listen(3000, () => {
     logActivity('Server is running on http://localhost:3000');
 });
-// switch (url) {
-//     case '/':
-//         console.log('Switch 1 : Root');
-//         res.writeHead(200, { 'Content-Type': 'text/plain' });
-//         res.end('Home page');
-//         break;
-//     case '/about':
-//         console.log('Switch 2 : about');
-//         res.writeHead(200, { 'Content-Type': 'text/plain' });
-//         res.end('About page.');
-//         break;
-//     case '/contact':
-//         console.log('Switch 3 : contact');
-//         res.writeHead(200, { 'Content-Type': 'text/plain' });
-//         res.end('Contact us');
-//         break;
-//     default:
-//         console.log('Switch 4 : Not Found')
-//         res.writeHead(404, { 'Content-Type': 'text/plain' });
-//         res.end('Not Found');
-// };

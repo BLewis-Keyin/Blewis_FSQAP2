@@ -1,153 +1,383 @@
-body,
-h1,
-h2,
-h3,
-ul,
-li,
-p {
-    margin: 0;
-    padding: 0;
-}
-
-
-/* Set a background color and font family for the entire page */
-
-body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-}
-
-
-/* Create a header style */
-
-header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-}
-
-
-/* Style links in the navigation menu */
-
-nav ul {
-    list-style: none;
-}
-
-nav li {
-    display: inline;
-    margin-right: 10px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #333;
-}
-
-
-/* Style the main content area */
-
-main {
-    padding: 20px;
-}
-
-
-/* Create a chat room container */
-
-#chat-room {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
-}
-
-
-/* Style the chat input and button */
-
-#message-input {
-    width: 80%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#send-button {
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-
-/* Style the chat messages */
-
-#chat-box {
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    height: 300px;
-    width: 600px;
-    overflow-y: scroll;
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-
-/* Style chat message elements */
-
-.chat-message {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin: 10px;
-    padding: 10px;
-}
-
-#menu-placeholder {
-    width: 200px;
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    border-right: 1px solid #555;
-}
-
-#menu-placeholder2 {
-    width: 200px;
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    border-right: 1px solid #555;
-}
-
-#menu-placeholder,
-#menu-placeholder2 h3 {
-    font-size: 18px;
-}
-
-#menu-placeholder,
-#menu-placeholder2 ul {
-    list-style: none;
-    padding: 0;
-}
-
-#menu-placeholder,
-#menu-placeholder2 li {
-    margin-bottom: 10px;
-}
-
-#menu-placeholder,
-#menu-placeholder2 a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 16px;
-}
-
-#menu-placeholder,
-#menu-placeholder2 a:hover {
-    text-decoration: underline;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        position: relative
+    }
+    
+    .content {
+        min-height: 100vh;
+        padding-bottom: 60px;
+        /* Adjust this value based on your footer height */
+    }
+    
+    .hero {
+        background-color: #3498db;
+        color: #fff;
+        text-align: center;
+        padding: 40px;
+    }
+    
+    .hero h1 {
+        font-size: 36px;
+    }
+    
+    .hero p {
+        font-size: 18px;
+        margin: 20px 0;
+    }
+    
+    .about {
+        background-color: #fff;
+        text-align: center;
+        padding: 40px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .about h2 {
+        color: #333;
+        font-size: 28px;
+        margin: 20px 0;
+    }
+    
+    .about p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    
+    .team {
+        background-color: #f0f0f0;
+        text-align: center;
+        padding: 40px;
+    }
+    
+    .team h2 {
+        font-size: 28px;
+        margin: 20px 0;
+    }
+    
+    .team p {
+        font-size: 16px;
+    }
+    
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+    /* Responsive design for smaller screens */
+    
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 24px;
+        }
+        .hero p {
+            font-size: 16px;
+        }
+        .about h2 {
+            font-size: 24px;
+        }
+        .about p {
+            font-size: 14px;
+        }
+        .team h2 {
+            font-size: 24px;
+        }
+        .team p {
+            font-size: 14px;
+        }
+    }
+    
+    #menu-placeholder2 {
+        background-color: #3498db;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    #menu-placeholder2 h3 {
+        font-size: 24px;
+    }
+    
+    #menu-placeholder2 ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    #menu-placeholder2 ul li {
+        margin: 10px 0;
+    }
+    
+    #menu-placeholder2 ul li a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+    }
+    
+    #menu-placeholder2 ul li a:hover {
+        text-decoration: underline;
+    }
+    
+    #chat-box {
+        background-color: #fff;
+        text-align: left;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        min-height: 400px;
+        max-height: 800px;
+        margin: 10px auto;
+    }
+    
+    #chat-box p {
+        background-color: rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+        margin: 5px;
+        padding: 5px;
+    }
+    
+    .message-input-container {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        width: 650px;
+    }
+    
+    #message-input {
+        width: 400px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        margin: 0 auto;
+    }
+    
+    #send-button {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+    
+    #clear-button {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+    
+    #send-button:hover,
+    #clear-button:hover {
+        background-color: #2581c4;
+    }
+    
+    .contact-info,
+    .contact-form {
+        text-align: center;
+        padding: 40px 0;
+    }
+    
+    .contact-form form {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .contact-form label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        /* Grey border */
+        border-radius: 4px;
+    }
+    
+    .contact-form button {
+        background-color: #3498db;
+        /* Blue button background */
+        color: #fff;
+        /* White text */
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    .contact-form button:hover {
+        background-color: #2980b9;
+        /* Darker blue on hover */
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    /* Header Styles */
+    
+    .header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+    }
+    
+    .header h1 {
+        font-size: 36px;
+        margin: 0;
+    }
+    
+    .header p {
+        font-size: 18px;
+        margin: 10px 0;
+    }
+    /* Navigation Styles */
+    
+    .navbar {
+        background-color: #333;
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+    }
+    
+    .navbar a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 20px;
+    }
+    /* Hero Section Styles */
+    
+    .cta-button {
+        background-color: #0077b6;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 18px;
+        margin: 10px;
+    }
+    
+    .cta-button:hover {
+        background-color: #00567a;
+    }
+    /* About Section Styles */
+    
+    .about {
+        background-color: #f0f0f0;
+        padding: 40px 0;
+        text-align: center;
+    }
+    
+    .about h2 {
+        font-size: 24px;
+    }
+    
+    .about p {
+        font-size: 16px;
+        margin: 20px 0;
+    }
+    
+    ul#news-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    ul#news-list li {
+        margin: 10px 0;
+    }
+    
+    ul#news-list a {
+        text-decoration: none;
+        color: #0077b6;
+        font-size: 18px;
+    }
+    
+    ul#news-list a:hover {
+        text-decoration: underline;
+    }
+    
+    .newsitem {
+        background-color: rgba(162, 206, 231, 0.616);
+        margin: 0 auto;
+        padding: 10px;
+        width: 800px;
+    }
+    
+    .newsitem img {
+        width: 800px;
+    }
+    
+    .banner-menu {
+        background-color: #3498db;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+    }
+    
+    .banner-menu ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+    }
+    
+    .banner-menu li {
+        margin: 0 20px;
+    }
+    
+    .banner-menu a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 16px;
+    }
+    
+    .banner-menu a:hover {
+        text-decoration: underline;
+    }
+    /* Container Styles */
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    /* Footer Styles */
+    
+    .footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+    }
+    
+    .footer p {
+        font-size: 14px;
+        margin: 0;
+    }
