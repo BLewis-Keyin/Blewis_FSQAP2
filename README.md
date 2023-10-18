@@ -1,4 +1,4 @@
-Chat Application with Multiple Rooms
+Fullstack QAP 2 Project
 
 This project is a an example project to demonstrate Server Setup using mode.js and Event Logging. It's built with JavaScript, Node.js, Express, and Socket.IO.
 
